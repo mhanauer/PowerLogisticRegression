@@ -19,6 +19,8 @@ Two things that we need
 1. Base odds of someone going back to jail (50/50?)
 2. Percentage change in the odds (25% reduction?)
 
+Need to think about the x variable as a one unit change, because it is continious.
+
 ```{r}
 intercept = log(1)
 ## 25% reduction in the odds of going back to jail
@@ -36,7 +38,7 @@ result <-  replicate(
                   prob <- exp(linpred)/(1 + exp(linpred))
                   runis <- runif(length(xtest),0,1)
                   ytest <- ifelse(runis < prob,1,0)
-                  summary(model <- glm(ytest ~ xtest,  family = "binomial"))$coefficients[2,4] < .05
+                  summary(model <- glm(ytest ~ xtest,  family =   "binomial"))$coefficients[2,4] < .05
                   }
             )
 power = sum(result)/runs; power
